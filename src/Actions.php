@@ -15,6 +15,9 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use RecursiveRegexIterator;
 use RegexIterator;
+use function str_replace;
+use function strlen;
+use function substr;
 
 class Actions
 {
@@ -95,18 +98,9 @@ class Actions
         string $tail = ''
     ) : ?string
     {
-        $base = rtrim($this->config->namespace, '\\')
-            . $subNamespace
-            . '\\';
-
-        if ($tail !== '') {
-            $base .= $tail . '\\';
-        }
-
-        $ending = str_replace('\\', '', $subNamespace . $tail)
-            . $this->config->suffix;
-
-        return $base . $verb . $ending;
+        unset($verb);
+        return rtrim($this->config->namespace, '\\')
+            . $subNamespace;
     }
 
     public function hasAction(
